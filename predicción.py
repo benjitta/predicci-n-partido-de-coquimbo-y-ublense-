@@ -73,9 +73,41 @@ print("R2 Score (que tan bien se ajusta):", round(r2_score(y_historial, predicci
 print("Error absoluto medio (MAE):", round(mean_absolute_error(y_historial, predicciones), 2))
 print("-" * 30)
 
+# evaluar modelo con datos nuevos
+# coquimbo es visita (0).
+# coquimbo viene con 2 victorias.
+# ñublense viene con 1 victoria.
+# promedio de goles de coquimbo en el campeonato es 1.25
+datos_partido_nuevo = np.array([[0, 2, 1, 1.25]])
 
+prediccion = modelo.predict(datos_partido_nuevo)[0]
 
+# me aseguro que la prob no pase de 1 o baje de 0
+probabilidad = max(0, min(prediccion, 1))
 
+print(f"\nPredicción para el partido Ñublense vs Coquimbo Unido (19/04/2026):")
+print(f"Probabilidad de que GANE Coquimbo Unido: {probabilidad * 100:.2f}%\n")
+
+if probabilidad > 0.6:
+    print("Conclusión: ¡Es muy probable que Coquimbo gane!")
+elif probabilidad > 0.4: 
+    print("Conclusión: Va a estar reñido, huele a un empate.")
+else:
+    print("Conclusión: Esta difícil para Coquimbo, ñublense tiene la ventaja.")
+
+# mercado de goles (over/under 2.5)
+
+modelo_goles = LinearRegression()
+modelo_goles.fit(X_historial, y_goles_totales)
+prediccion_goles = modelo_goles.predict(datos_partido_nuevo)[0]
+
+print("\n--- Apuesta a Cantidad de Goles (Mercado Over/Under) ---")
+print(f"Goles totales esperados por el modelo: {prediccion_goles:.2f}")
+
+if prediccion_goles > 2.5:
+    print("Sugerencia de apuesta: MÁS DE 2.5 GOLES (Over 2.5) en el partido.")
+else:
+    print("Sugerencia de apuesta: MENOS DE 2.5 GOLES (Under 2.5) en el partido.")
 
 
 
