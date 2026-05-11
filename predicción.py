@@ -24,14 +24,30 @@ X_historial = np.array([
 y_historial = np.array([1, 0, 1, 0, 0, 1, 1, 0.5])
 y_goles_totales = np.array([5, 1, 4, 1, 4, 1, 2, 2])
 
+# Modelo de Probabilidad
+modelo = LinearRegression()
+modelo.fit(X_historial, y_historial)
 
+# Predicción para los datos históricos
+predicciones = modelo.predict(X_historial)
+print("R2 Score (que tan bien se ajusta):", round(r2_score(y_historial, predicciones), 2))
+print("Error absoluto medio (MAE):", round(mean_absolute_error(y_historial, predicciones), 2))
+print("-" * 30)
 
+# Evaluar modelo con datos nuevos
+datos_partido_nuevo = np.array([[0, 2, 1, 1.25]])
+prediccion = modelo.predict(datos_partido_nuevo)[0]
+probabilidad = max(0, min(prediccion, 1))
 
+print(f"\nPredicción para el partido Ñublense vs Coquimbo Unido (19/04/2025):")
+print(f"Probabilidad de que GANE Coquimbo Unido: {probabilidad * 100:.2f}%\n")
 
-
-
-
-
+if probabilidad > 0.6:
+    print("Conclusión: ¡Es muy probable que Coquimbo gane!")
+elif probabilidad > 0.4: 
+    print("Conclusión: Va a estar reñido, huele a un empate.")
+else:
+    print("Conclusión: Esta difícil la para Coquimbo ñublense tiene la ventaja.")
 
 # Modelo de Goles
 modelo_goles = LinearRegression()
