@@ -8,8 +8,7 @@ import matplotlib.pyplot as plt
 
 # modelo de regresión para predecir el partido de ñublense vs coquimbo unido
 # DIA del partido: 19/04/2025 a las 12:30 Pm
-# Tome datos historicos de sus enfrentamiento y como venian en el campeonato
-
+# Tome datos historicos de los enfrentamiento de coquimbo unido y ñublense
 X_historial = np.array([
     [1, 0, 1, 1.25], # 2026-04-03 vs Cobresal (Victoria 3-2) - Local
     [0, 1, 2, 1.25], # 2026-03-14 vs U. de Chile (Derrota 0-1) - Visita
