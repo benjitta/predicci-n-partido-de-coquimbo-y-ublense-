@@ -33,6 +33,8 @@ X_historial = np.array([
 # luego lo paso a porcentaje.
 
 y_historial = np.array([1, 0, 1, 0, 0, 1, 1, 0.5])
+# Variable (y_goles) para apostar a Cantidad de Goles Totales (Over/Under)
+# Goles de esos partidos: 5 (3-2), 1 (0-1), 4 (3-1), 1 (0-1), 4 (1-3), 1 (1-0), 2 (2-0), 2 (1-1)
 y_goles_totales = np.array([5, 1, 4, 1, 4, 1, 2, 2])
 
 # Modelo de Probabilidad
