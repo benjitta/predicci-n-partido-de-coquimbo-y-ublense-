@@ -27,6 +27,11 @@ X_historial = np.array([
     [0, 1, 1, 1.25]  # 2026-01-XX vs Otro equipo (Empate) - Visita
 ])
 
+# Variable (y): 
+# resultado del partido para Coquimbo: 1 (Gana), 0.5 (Empata), 0 (Pierde)
+# el modelo tirara un valor si es aprox 1 es probable que gane.
+# luego lo paso a porcentaje.
+
 y_historial = np.array([1, 0, 1, 0, 0, 1, 1, 0.5])
 y_goles_totales = np.array([5, 1, 4, 1, 4, 1, 2, 2])
 
