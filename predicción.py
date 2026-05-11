@@ -108,28 +108,3 @@ if prediccion_goles > 2.5:
     print("Sugerencia de apuesta: MÁS DE 2.5 GOLES (Over 2.5) en el partido.")
 else:
     print("Sugerencia de apuesta: MENOS DE 2.5 GOLES (Under 2.5) en el partido.")
-
-
-#DEJAR ESO AL FINAL PORFAVIOR
-
-# 1. Gráfico de Probabilidad (Gráfico de Torta)
-etiquetas = ['Probabilidad Coquimbo', 'Ventaja Ñublense / Empate']
-tamanos = [probabilidad * 100, (1 - probabilidad) * 100]
-colores = ['#ffe100', '#cc0000'] # Amarillo para Coquimbo, Rojo para Ñublense
-
-plt.figure(figsize=(6, 6))
-plt.pie(tamanos, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90, shadow=True)
-plt.title('Predicción de Victoria: Ñublense vs Coquimbo')
-plt.savefig('grafico_probabilidad.png') # Esto guarda la imagen en tu carpeta
-plt.show()
-
-# 2. Gráfico de Goles (Gráfico de Barras)
-plt.figure(figsize=(6, 4))
-plt.bar(['Goles Esperados del Modelo'], [prediccion_goles], color='#2b8cbe')
-plt.axhline(y=2.5, color='red', linestyle='--', linewidth=2, label='Línea de Apuesta (2.5)')
-plt.ylim(0, max(4, prediccion_goles + 1))
-plt.title('Mercado Over/Under: Goles Totales')
-plt.ylabel('Cantidad de Goles')
-plt.legend()
-plt.savefig('grafico_goles.png') # Esto guarda la imagen en tu carpeta
-plt.show()
