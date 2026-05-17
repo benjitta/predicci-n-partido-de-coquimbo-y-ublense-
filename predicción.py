@@ -202,3 +202,25 @@ plt.ylabel('Frecuencia')
 plt.tight_layout()
 plt.savefig('histograma_residuos.png')
 plt.show()
+
+# 8. Gráfico de Probabilidad (Gráfico de Torta)
+etiquetas = ['Probabilidad Coquimbo', 'Ventaja Ñublense / Empate']
+tamanos = [prob_coquimbo * 100, (1 - prob_coquimbo) * 100]
+colores = ['#ffe100', '#cc0000'] # Amarillo para Coquimbo, Rojo para Ñublense
+
+plt.figure(figsize=(6, 6))
+plt.pie(tamanos, labels=etiquetas, colors=colores, autopct='%1.1f%%', startangle=90, shadow=True)
+plt.title('Predicción de Victoria: Ñublense vs Coquimbo')
+plt.savefig('grafico_probabilidad.png')
+plt.show()
+
+# 9. Gráfico de Goles (Gráfico de Barras)
+plt.figure(figsize=(6, 4))
+plt.bar(['Goles Esperados del Modelo'], [pred_goles], color='#2b8cbe')
+plt.axhline(y=2.5, color='red', linestyle='--', linewidth=2, label='Línea de Apuesta (2.5)')
+plt.ylim(0, max(4, pred_goles + 1))
+plt.title('Mercado Over/Under: Goles Totales')
+plt.ylabel('Cantidad de Goles')
+plt.legend()
+plt.savefig('grafico_goles.png')
+plt.show()
