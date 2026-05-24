@@ -241,7 +241,7 @@ modelo_arbol_goles.fit(X, y_goles)
 
 predicciones_arbol_goles = modelo_arbol_goles.predict(X)
 
-print("\n--- Evaluación Árbol de Decisión (Probabilidad) ---")
+print("\n Evaluación arbol de decisión ")
 print("R2 Score:", round(r2_score(y_resultado, predicciones_arbol_prob), 2))
 print("MAE:", round(mean_absolute_error(y_resultado, predicciones_arbol_prob), 2))
 
@@ -249,25 +249,25 @@ print("MAE:", round(mean_absolute_error(y_resultado, predicciones_arbol_prob), 2
 pred_arbol_prob = modelo_arbol_prob.predict(datos_partido_nuevo)[0]
 prob_arbol_coquimbo = max(0, min(pred_arbol_prob, 1))
 
-print(f"\nPredicción Árbol Binario para Ñublense vs Coquimbo Unido:")
+print(f"\nPredicción arbol binario para Ñublense vs Coquimbo Unido:")
 print(f"Probabilidad de que GANE Coquimbo Unido: {prob_arbol_coquimbo * 100:.2f}%")
 
 if prob_arbol_coquimbo > 0.6:
-    print("Conclusión Árbol: ¡Es muy probable que Coquimbo gane!")
+    print("Conclusión Arbol: Es muy probable que Coquimbo gane")
 elif prob_arbol_coquimbo > 0.4:
-    print("Conclusión Árbol: Partido muy equilibrado.")
+    print("Conclusión Arbol: Partido muy equilibrado.")
 else:
-    print("Conclusión Árbol: Ñublense tendría ventaja.")
+    print("Conclusión Arbol: Ñublense tendría ventaja.")
 
 pred_arbol_goles = modelo_arbol_goles.predict(datos_partido_nuevo)[0]
 
-print("\n--- Árbol Binario: Mercado Over/Under ---")
-print(f"Goles esperados por el árbol: {pred_arbol_goles:.2f}")
+print("\n Arbol binario: Mercado over/under ")
+print(f"Goles esperados por el arbol: {pred_arbol_goles:.2f}")
 
 if pred_arbol_goles > 2.5:
-    print("Sugerencia Árbol: MÁS DE 2.5 GOLES.")
+    print("Sugerencia Arbol: Más de 2.5 goles")
 else:
-    print("Sugerencia Árbol: MENOS DE 2.5 GOLES.")
+    print("Sugerencia Arbol: Menos de 2.5 goles")
 
 # Visualización del arbol binario (Resultado)
 
