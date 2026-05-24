@@ -4,6 +4,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_absolute_error
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.tree import plot_tree
+from sklearn.tree import DecisionTreeRegressor
 
 # Datos
 #[local, goles_favor, goles_contra, promedio_goles_campeonato, victorias3, empates3, derrotas3, promedio_goles_ultimos5]
@@ -223,4 +225,72 @@ plt.title('Mercado Over/Under: Goles Totales')
 plt.ylabel('Cantidad de Goles')
 plt.legend()
 plt.savefig('grafico_goles.png')
+plt.show()
+
+#Arbol binario
+
+predicciones_goles = modelo_goles.predict(X)
+
+modelo_arbol_prob = DecisionTreeRegressor(max_depth=3,min_samples_leaf=3,random_state=42)
+modelo_arbol_prob.fit(X, y_resultado)
+
+predicciones_arbol_prob = modelo_arbol_prob.predict(X)
+
+modelo_arbol_goles = DecisionTreeRegressor(max_depth=4, random_state=42)
+modelo_arbol_goles.fit(X, y_goles)
+
+predicciones_arbol_goles = modelo_arbol_goles.predict(X)
+
+print("\n--- Evaluación Árbol de Decisión (Probabilidad) ---")
+print("R2 Score:", round(r2_score(y_resultado, predicciones_arbol_prob), 2))
+print("MAE:", round(mean_absolute_error(y_resultado, predicciones_arbol_prob), 2))
+
+# Predicción árbol binario para el partido
+pred_arbol_prob = modelo_arbol_prob.predict(datos_partido_nuevo)[0]
+prob_arbol_coquimbo = max(0, min(pred_arbol_prob, 1))
+
+print(f"\nPredicción Árbol Binario para Ñublense vs Coquimbo Unido:")
+print(f"Probabilidad de que GANE Coquimbo Unido: {prob_arbol_coquimbo * 100:.2f}%")
+
+if prob_arbol_coquimbo > 0.6:
+    print("Conclusión Árbol: ¡Es muy probable que Coquimbo gane!")
+elif prob_arbol_coquimbo > 0.4:
+    print("Conclusión Árbol: Partido muy equilibrado.")
+else:
+    print("Conclusión Árbol: Ñublense tendría ventaja.")
+
+pred_arbol_goles = modelo_arbol_goles.predict(datos_partido_nuevo)[0]
+
+print("\n--- Árbol Binario: Mercado Over/Under ---")
+print(f"Goles esperados por el árbol: {pred_arbol_goles:.2f}")
+
+if pred_arbol_goles > 2.5:
+    print("Sugerencia Árbol: MÁS DE 2.5 GOLES.")
+else:
+    print("Sugerencia Árbol: MENOS DE 2.5 GOLES.")
+
+# Visualización del arbol binario (Resultado)
+
+plt.figure(figsize=(20,10))
+
+plot_tree(modelo_arbol_prob, feature_names=features, filled=True, rounded=True, fontsize=9)
+
+plt.title('Árbol Binario - Predicción de Resultado')
+plt.savefig('arbol_binario_resultado.png')
+plt.show()
+
+# Dispersión Predicciones arbol vs reales
+
+plt.figure(figsize=(8,5))
+
+sns.scatterplot( x=y_resultado, y=predicciones_arbol_prob, color='darkgreen', alpha=0.7)
+
+plt.plot([y_resultado.min(), y_resultado.max()], [y_resultado.min(), y_resultado.max()], 'r--', linewidth=2)
+
+plt.title('Árbol Binario: Predicciones vs Reales')
+plt.xlabel('Resultado Real')
+plt.ylabel('Predicción Árbol')
+
+plt.tight_layout()
+plt.savefig('arbol_pred_vs_real.png')
 plt.show()
